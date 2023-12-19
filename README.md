@@ -30,14 +30,14 @@ I wanted to create a cluster based on my own preferences, using modern component
 5. Cluster should be created and running. `kubectl` should be working on the master node now. 
 
 ## Roles explained
-* common_install
+* [common_install](roles/common_install/tasks/main.yaml)
   * Upgrade packages, install useful system utilities
-* kube_preinstall
+* [kube_preinstall](roles/kube_preinstall/tasks/main.yaml)
   * Install container tools and kubeadm on every node
   * Configure the system for Kubernetes
-* master_install
+* [master_install](roles/master_install/tasks/main.yaml)
   * Create the cluster
-* worker_install
+* [worker_install](roles/worker_install/tasks/main.yaml)
   * Join worker nodes to the cluster
-* cilium_install
+* [cilium_install](roles/cilium_install/tasks/main.yaml)
   * Install Cilium CNI plugin using Helm
