@@ -1,0 +1,7 @@
+---
+- name: Setup Kubernetes node
+  hosts: all
+  become: true
+  roles:
+    - role: common_install
+    - role: kube_preinstall

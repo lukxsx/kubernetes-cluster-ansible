@@ -1,0 +1,26 @@
+- name: Update apt cache
+  apt:
+    update_cache: true
+
+- name: Upgrade packages
+  apt:
+    upgrade: safe
+
+- name: Install basic packages
+  apt:
+    name:
+      - vim
+      - qemu-guest-agent
+      - dnsutils
+      - ufw
+      - curl
+      - apt-transport-https
+      - ca-certificates
+      - gpg
+    state: present
+
+- name: Remove unneeded packages
+  apt:
+    name:
+      - unattended-upgrades
+    state: absent
