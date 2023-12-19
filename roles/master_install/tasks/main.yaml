@@ -1,8 +1,6 @@
 ---
-- include_tasks: helm.yaml
-
 - name: Create cluster
-  shell: kubeadm init --pod-network-cidr=10.30.0.0/16 --skip-phases=addon/kube-proxy --cri-socket=unix:///var/run/crio/crio.sock
+  shell: kubeadm init --pod-network-cidr={{ pod_cidr }} --skip-phases=addon/kube-proxy --cri-socket=unix:///var/run/crio/crio.sock
   register: kubeadm_output
 
 - debug:
@@ -20,5 +18,12 @@
   lineinfile:
     dest: /root/.bashrc
     line: 'export KUBECONFIG=/etc/kubernetes/admin.conf'
+    create: yes
+    state: present
+
+- name: Add alias k for kubectl
+  lineinfile:
+    dest: /root/.bashrc
+    line: 'alias k="kubectl"'
     create: yes
     state: present

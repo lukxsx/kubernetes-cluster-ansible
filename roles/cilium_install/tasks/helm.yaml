@@ -1,3 +1,4 @@
+---
 - name: Download Helm signing key and add it to keyrings
   shell: "curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null"
 

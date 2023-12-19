@@ -1,5 +1,5 @@
 ---
-- name: Setup Kubernetes node
+- name: Setup Kubernetes cluster
   hosts: all
   become: true
   roles:
@@ -9,3 +9,5 @@
       when: "'kube_masters' in group_names"
     - role: worker_install
       when: "'kube_workers' in group_names"
+    - role: cilium_install
+      when: "'kube_masters' in group_names"
