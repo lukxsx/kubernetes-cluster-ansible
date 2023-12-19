@@ -1,0 +1,17 @@
+- name: Download Helm signing key and add it to keyrings
+  shell: "curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null"
+
+- name: Add Helm repository to apt sources
+  lineinfile:
+    dest: /etc/apt/sources.list.d/helm-stable-debian.list
+    line: "deb [arch=amd64 signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
+    create: true
+
+- name: Update apt repositories
+  apt:
+    update_cache: true
+
+- name: Install Helm
+  apt:
+    name: helm
+    state: present
