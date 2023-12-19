@@ -1,0 +1,8 @@
+---
+- name: Set fact with retrieved kubernetes_join_command
+  set_fact:
+    cluster_join_command: "{{ hostvars['kube-master'].cluster_join_command }}"
+
+- name: Join worker nodes to the Kubernetes cluster
+  shell: "{{ cluster_join_command }}"
+  when: cluster_join_command is defined

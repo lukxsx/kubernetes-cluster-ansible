@@ -1,0 +1,22 @@
+---
+- name: Create cluster
+  shell: kubeadm init --pod-network-cidr=10.30.0.0/16 --skip-phases=addon/kube-proxy --cri-socket=unix:///var/run/crio/crio.sock
+  register: kubeadm_output
+
+- debug:
+    var: kubeadm_output.stdout_lines
+
+- name: Get Kubernetes join information from kubeadm init output
+  shell: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Set fact with command output
+  set_fact:
+    cluster_join_command: "{{ join_command.stdout }}"
+
+- name: Add KUBECONFIG to root user's environment
+  lineinfile:
+    dest: /root/.bashrc
+    line: 'export KUBECONFIG=/etc/kubernetes/admin.conf'
+    create: yes
+    state: present
